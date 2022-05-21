@@ -1,0 +1,41 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Edit Details {% endblock %}
+{% block body %}
+    <div>
+        <form action="{{ request.path }}" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form_name.as_p }}
+            </fieldset>
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </form>
+    </div>
+    <div>
+        <form action="{{ request.path }}" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form_email.as_p }}
+            </fieldset>
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </form>
+    </div>
+    <div>
+        <form action="{{ request.path }}" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form_phone.as_p }}
+            </fieldset>
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </form>
+    </div>
+    <div>
+        <form action="{{ request.path }}" method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form_address.as_p }}
+            </fieldset>
+            <button class="btn btn-outline-info" type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %} 

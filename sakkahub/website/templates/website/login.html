@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Login {% endblock %}
+{% block body %}
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                {{ form.as_p }}
+                <button class="btn btn-outline-info" type="submit">Login</button>
+            </fieldset>
+
+        </form>
+    </div>
+{% endblock %} 

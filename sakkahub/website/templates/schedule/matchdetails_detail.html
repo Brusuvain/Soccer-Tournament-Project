@@ -1,0 +1,23 @@
+{% extends "Schedule/Base.html" %}
+{% block content %}
+    <h2>Soccer Tournament</h2>
+    
+    <article class="media content-section">
+        <div class="media-body">
+        <div class="article-metadata">
+            <h5><a class="mr-2" href="{% url 'match-report' %}">{{ object.content }}</a></h5>
+            <small class="text-muted">On {{ object.date }}  starts at {{object.time}}</small>
+        </div>
+        <h3><a class="article-title" href="#">{{object.team1}}     v/s    {{  object.team2}}</a></h3>
+        <p class="article-content">Venue: {{ object.venue }}<p><a href="{% url 'match-result' %}">Click here for match points table</p></p>
+        
+        </div>
+    </article>
+    <div>
+        <h4>Match Result: {{object.match_result}}</h2><br><br>
+        <h5>Team 1 Score: {{object.team1_score}} points</h5><br>
+        <h5>Team 2 Score: {{object.team2_score}} points</h5><br>
+    </div> 
+    
+ {% endblock content %}   
+       

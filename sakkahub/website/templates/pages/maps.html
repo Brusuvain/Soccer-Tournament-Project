@@ -1,0 +1,165 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Locations On A Map {% endblock %}
+{% block head %}
+    <style>
+      #output {
+        margin: auto;
+        width: 20%;
+        color: #ffffff;
+        font-family: Copperplate, fantasy;
+        font-size: 160%;
+      }
+      #map {
+        margin: auto;
+        width: 70%;
+        height: 450px;
+        border: 5px solid #505050;
+        padding: 10px;
+      }
+      body {
+        background-repeat: no-repeat;
+        background-size: 100% 100vh;
+        background-image: url("https://cdn.pixabay.com/photo/2016/11/29/02/05/audience-1866738_960_720.jpg");
+      }
+    </style>
+{% endblock %}
+{% block body %}
+    <div id="output">Stadiums and Hotels</div>
+    <div id="message"></div>
+    <div id="map"></div>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAUoXSZlrq1UzW0Tn49xhZ03gwLdtDXRyE"></script>
+    <script>
+      var message = document.getElementById("message");
+      var fReader = new FileReader();
+
+      var text, tempLatt, tempLong, indexOfComma, indexOfExclamation;
+      var m = document.getElementById("map");
+      var latt = [];
+      var long = [];
+      var urlsArr=[];
+      latt[0] = 33.4265;
+      long[0] = -111.9326;
+      latt[1] = 33.4457;
+      long[1] = -112.0712;
+      latt[2] = 33.7276;
+      long[2] = -112.2626;
+      latt[3] = 33.5337;
+      long[3] = -112.2617;
+      latt[4]= 33.7573;
+      long[4]= -112.3555;
+      latt[5]= 33.7573;
+      long[5]= -112.3555;
+      latt[6]= 32.7682;
+      long[6]= -111.6534;
+      //Hotel Coordinates
+      latt[7]=33.3738051;
+      long[7]=-111.9701886;
+      latt[8]= 33.5;
+      long[8]=-112.1;
+       latt[9]= 33.554522793149665;
+      long[9]=-112.04869611048949;
+       latt[10]= 33.425823243587274;
+      long[10]=-111.41875599993763;
+       latt[11]= 33.54988324544414;
+      long[11]=-112.5258611413204;
+       latt[12]= 33.601292857864784;
+      long[12]=-111.68429313083095;
+      //urls
+      urlsArr[0]="https://thesundevils.com/facilities/frank-kush-field-sun-devil-stadium/12";
+      urlsArr[1]="https://attstadium.com/";
+      urlsArr[2]="https://www.nrgpark.com/nrg-park-facilities-2/nrg-stadium/";
+      urlsArr[3]="https://thesundevils.com/facilities/phoenix-municipal-stadium/5";
+      urlsArr[4]="https://www.ballparksofbaseball.com/ballparks/tropicana-field/";
+      urlsArr[5]="https://www.mlb.com/astros/ballpark";
+      urlsArr[6]="https://www.mlb.com/rays/ballpark";
+      urlsArr[7]="https://www.arizonagrandresort.com/?utm_source=Sojern&utm_medium=SEM&gclid=CjwKCAjwk6-LBhBZEiwAOUUDp0cfn-skOXEnBOcMB23K6ELzo0Dtyn3p-GcUjRbYR4a444uuNfWwnRoCNFMQAvD_BwE&gclsrc=aw.ds";
+      urlsArr[8]="https://www.hiltonphoenixresortatthepeak.com/";
+      urlsArr[9]="https://www.thetempesthotel.com/";
+      urlsArr[10]="https://www.ihg.com/holidayinn/hotels/us/en/glendale/phxbh/hoteldetail";
+      urlsArr[11]="https://www.ihg.com/holidayinnexpress/hotels/us/en/buckeye/phxbe/hoteldetail";
+      urlsArr[12]="https://www.wekopacasinoresort.com/";
+
+
+
+      navigator.geolocation.getCurrentPosition(placeMap);
+
+      function placeMap(data) {
+        var options = {
+          center: {
+            // general Coordinates to where map centres on loading, for now these are Coords. of Arizona
+            lat: 33.4489,
+            lng: -112.0937,
+          },
+          zoom: 9,
+        };
+        var map = new google.maps.Map(m, options);
+        console.dir(data);
+        var x = 0,
+          y = 0,
+          z = 0;
+        var time = setInterval(update, 5);
+
+        function update() {
+          //Calls the addMarker function for each pair of Lattitude & Longitude
+          if(x>6){
+            addHotelMarkers(
+            latt[x],
+            long[y],
+            urlsArr[x],
+          );
+          }
+         else{
+           addStadiumMarkers(
+            latt[x],
+            long[y],
+            urlsArr[x],
+          );}
+          ++x;
+          ++y;
+          if (x > latt.length - 1) clearInterval(time);
+        }
+
+        function addStadiumMarkers(latitude, longitude, linkToMarker) {
+          //Maps a pair of Lattitude & Longitude on the map
+          var myLatLng = { lat: latitude, lng: longitude };
+          var marker = new google.maps.Marker({
+            map: map,
+            position: myLatLng,
+            title: "Marker",
+            icon:{
+                url:'http://maps.google.com/mapfiles/ms/micons/sportvenue.png'
+            }
+          });
+          marker.linkUrl = linkToMarker;
+
+          marker.addListener("click", function () {
+            window.location = this.linkUrl;
+          });
+        }
+      
+
+          function addHotelMarkers(latitude, longitude, linkToMarker) {
+          //Maps a pair of Lattitude & Longitude on the map
+          var myLatLng = { lat: latitude, lng: longitude };
+          var marker = new google.maps.Marker({
+            map: map,
+            position: myLatLng,
+            title: "Marker",
+            icon:{
+                url:'http://maps.google.com/mapfiles/ms/micons/lodging.png'
+            }
+          });
+
+        
+
+          marker.linkUrl = linkToMarker;
+
+          marker.addListener("click", function () {
+            window.location = this.linkUrl;
+          });
+        }
+      }
+    </script>
+  {% endblock %}
+

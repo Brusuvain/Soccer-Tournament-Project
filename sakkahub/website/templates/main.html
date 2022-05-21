@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <title>{% block title %} Sakkahub {% endblock %}</title>
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.css' rel='stylesheet' />
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.js'></script>
+    {% block head %} {% endblock %}
+</head>
+<body>
+    <div class= "topbar">
+        <ul>
+            <li><a href="{% url 'LiveTournaments' %}">Tournaments</a></li>
+            <li><a href="{% url 'events' %}">Events</a></li>
+            <li><a href="{% url 'maps' %}">Maps</a></li>
+            <li><a href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a href="{% url 'register-team' %}">Register Team</a></li>
+            <li><a href="{% url 'field-info' %}">Field Info</a></li>
+            <li><a href="">Contact Us</a></li>
+             {% if user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+                <li><a href="{% url 'edit-user' user.id %}">Edit Details</a></li>
+                {% if user.individual_level == Director %}
+                    <li><a href="{% url 'inventory' %}">Inventory Management</a></li>
+                {% endif %}
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+
+        </ul>
+    </div>
+    <div class="main">
+        {% block body %}{% endblock %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,110 @@
+{%  extends "main.html" %}
+{% load static %}
+{% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+  background-color: rgb(192, 231, 187);
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: burlywood;
+}
+
+body {
+        background-repeat:no-repeat;
+        background-size:100% 100vh;
+        background-image: url('https://static.wixstatic.com/media/c9c9a5_e0e85e5c02ae44c5a25fbf70328502d6~mv2_d_8869_2819_s_4_2.jpg/v1/fill/w_970,h_316,al_c,q_80,usm_0.66_1.00_0.01/c9c9a5_e0e85e5c02ae44c5a25fbf70328502d6~mv2_d_8869_2819_s_4_2.webp');
+      }
+</style>
+{% endblock %}
+{% block body %}
+
+<h2>Live Tournament</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<body>
+    <table id="myTable">
+        <tr class="header">
+          <th style="width:20%;">Tournaments</th>
+          <th style="width:30%;">Teams</th>
+          <th style="width:20%;">Match Date</th>
+          <th style="width:20%;">Tournament Deadline</th>
+        </tr>
+        
+      </table>
+</body>
+
+
+<script>
+
+function myFunction() {
+    table = document.getElementById("myTable");
+    for(var i = table.rows.length - 1; i > 0; i--)
+    {
+        table.deleteRow(i);
+    }
+    var schedule = JSON.parse("{{matchSchedule|escapejs}}");
+    console.log(schedule);
+    if (event.keyCode === 13) {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        // tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < schedule.length; i++) {
+            var tournamentDeadline = new Date(schedule[i].fields.tournament_end_date)
+            var todayDate = new Date();
+            if(filter == schedule[i].fields.touranment_name.toUpperCase() && todayDate<= tournamentDeadline){
+                var row = table.insertRow();
+                //adding cell for row
+                var MatchID = row.insertCell();
+                MatchID.innerHTML = schedule[i].fields.touranment_name;
+
+                var Match = row.insertCell();
+                Match.innerHTML = schedule[i].fields.home_team + "  - VS - " + schedule[i].fields.away_team
+
+                var Time = row.insertCell();
+                var dateTime = new Date(schedule[i].fields.date_time)
+                Time.innerHTML =  dateTime.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
+
+                var TournamentEndTime = row.insertCell();
+                TournamentEndTime.innerHTML = tournamentDeadline.getDate()+"/"+tournamentDeadline.getMonth()+"/"+tournamentDeadline.getFullYear();
+                
+
+                
+            }
+        }
+  }
+
+}
+</script>
+
+{% endblock %}

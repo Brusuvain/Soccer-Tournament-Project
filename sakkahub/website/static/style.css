@@ -1,0 +1,127 @@
+.topbar {
+    margin: 20px;
+    border-radius: 6px;
+    border: solid #283d20;
+    background: #53754c;
+    color: #000000;
+    font-size: 20px;
+    text-align: center;
+}
+
+.topbar ul {
+    margin: 10px;
+}
+
+.topbar li {
+    display: inline-block;
+}
+
+.topbar a {
+    display: inline-block;
+    padding: 15px;
+    color: #000000;
+}
+
+.topbar a:hover {
+    background: #1f651f;
+    text-decoration: none;
+}
+
+.main {
+    margin: 0 10%;
+    border-radius: 6px;
+    border: 3px solid #333;
+    background: #53754c;
+    padding: 15px;
+}
+
+table, th, td {
+    border: 1px solid black;
+    padding: 5px;
+}
+
+table.center {
+    margin: 0 auto;
+}
+
+fieldset {
+    border: 2px solid black;
+    padding: 25px;
+    display: inline-block;
+}
+
+.helptext {
+    display: block;
+    font-size: 15px;
+}
+
+form ul {
+    font-size: 15px;
+}
+
+form label {
+    display: inline-block;
+    width: 200px;
+    text-align: right;
+}
+
+.date {
+    padding-left: 200px;
+    width: 400px;
+}
+
+h2 {
+    font-family: 'Heebo', sans-serif;
+    margin-bottom: 40px;
+}
+
+.errorlist {
+    color: #800000;
+    margin-left: 200px;
+    padding-left: 0;
+}
+
+      .myDiv {
+        border: 5px outset lightcoral;
+        text-align: center;
+        height: 475px;
+        top: 35%;
+        left: 25%;
+        right: 25%;
+        margin: 10px;
+        background-color: #d3d2c2;
+        opacity: 0.8;
+      }
+
+      body {
+        background-repeat:no-repeat;
+        background-size:100% 100vh;
+        background-image: url('http://activecornwall.org/images/dr_f231f2f3b370f1e7a0edc4843748031b.jpg');
+      }
+      /* Add a black background color to the top navigation */
+      .localnav {
+        background-color: rgb(119, 168, 107);
+        overflow: hidden;
+      }
+
+      /* Style the links inside the navigation bar */
+      .localnav a {
+        float: left;
+        color: black;
+        text-align: center;
+        padding: 14px 15px;
+        text-decoration: none;
+        font-size: 18px;
+      }
+
+      /* Change the color of links on hover */
+      .localnav a:hover {
+        background-color: #699d69;
+        color: black;
+      }
+
+      /* Add a color to the active/current link */
+      .localnav a.active {
+        background-color: #0c0c0c;
+        color: #82de61;
+      }

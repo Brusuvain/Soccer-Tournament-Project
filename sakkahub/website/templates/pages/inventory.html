@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<h2>Manage Inventory</h2>
+
+<style>
+    * {
+      box-sizing: border-box;
+    }
+    
+    #myInput {
+      background-image: url('/css/searchicon.png');
+      background-position: 10px 10px;
+      background-repeat: no-repeat;
+      width: 100%;
+      font-size: 16px;
+      padding: 12px 20px 12px 40px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+    }
+    
+    #myTable {
+      border-collapse: collapse;
+      width: 100%;
+      border: 1px solid #ddd;
+      font-size: 18px;
+    }
+    
+    #myTable th, #myTable td {
+      text-align: left;
+      padding: 12px;
+    }
+    
+    #myTable tr {
+      border-bottom: 1px solid #ddd;
+      background-color: rgb(192, 231, 187);
+    }
+    
+    #myTable tr.header, #myTable tr:hover {
+      background-color: burlywood;
+    }
+    
+    body {
+        background-repeat:no-repeat;
+        background-size:100% 100vh;
+        background-image: url('https://media.istockphoto.com/photos/rows-of-shelves-picture-id1138429558?k=20&m=1138429558&s=612x612&w=0&h=SEojoXUHl6Di4plxrDgH28aY9J1yCTxFxH5uIlibDeo=');
+      }
+    </style>
+
+
+<script>
+  function makeAjaxCalls(sType, sUrl,oData,oContext){
+    $.ajax({
+        type: sType,
+        url: sUrl,
+        data: $(oContext).serialize(),
+        success: function(){
+            alert("ASF")
+        }
+   });
+  }
+
+  function myFunction() {
+        table = document.getElementById("myTable");
+        for(var i = table.rows.length - 1; i > 0; i--)
+        {
+            table.deleteRow(i);
+        }
+        var schedule = JSON.parse("{{inventoryDetails|escapejs}}");
+        console.log(schedule);
+        // tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < schedule.length; i++) {
+            var row = table.insertRow();
+            //adding cell for row
+            var MatchID = row.insertCell();
+            MatchID.innerHTML = schedule[i].fields.item_name;
+
+            var Match = row.insertCell();
+            Match.innerHTML = schedule[i].fields.quantity
+
+            var MatchID = row.insertCell();
+            MatchID.innerHTML = schedule[i].fields.state;
+
+            var Time = row.insertCell();
+            Time.innerHTML = schedule[i].fields.vendor_name
+  
+        }
+    
+   
+    }
+   
+   </script>
+
+
+<body onload="myFunction()">
+<div  style="width:250px; margin:0 auto;background-color:white; padding: 12px 20px 12px 40px;">
+    <form id="itemform" method="post" action="/inventory/items">
+        <label for="fname">Enter the item name:</label><br>
+        <input type="text" id="fname" name="itemName" value="Football"><br><br>
+        <label for="lname">Enter quantitiy of item:</label><br>
+        <input type="text" id="lname" name="itemQuantity" value="100"><br><br>
+        <label for="ls">Enter Vendor Name:</label><br>
+        <input type="text" id="ls" name="vendorName" value=""><br><br>
+        <input type="submit" value="Place order">
+      </form>
+</div>
+
+
+
+<p>Use form to place the order.</p>
+<table id="myTable">
+    <tr class="header">
+      <th style="width:20%;">Item Name</th>
+      <th style="width:30%;">Quantity</th>
+      <th style="width:20%;">Risk</th>
+      <th style="width:20%;">Vendor Name</th>
+    </tr> 
+  </table>
+</body>
+</html>
+

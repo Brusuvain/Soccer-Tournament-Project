@@ -1,0 +1,123 @@
+{% extends "main.html" %}
+{% load static %}
+{% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+#myTable {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #ddd;
+  font-size: 18px;
+}
+
+#myTable th, #myTable td {
+  text-align: left;
+  padding: 12px;
+}
+
+#myTable tr {
+  border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+  background-color: burlywood;
+}
+
+body {
+        background-repeat:no-repeat;
+        background-size:100% 100vh;
+        background-image: url('https://sectionv.org/images/2019/8/17/Soccer_Official_Stock_image.jpeg?width=1024&height=576&mode=crop');
+      }
+</style>
+{% endblock %}
+{% block body %}
+
+<h2>Referee Schedule</h2>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+
+    <table id="myTable">
+        <tr class="header">
+          <th style="width:20%;">Match ID</th>
+          <th style="width:30%;">Teams</th>
+          <th style="width:20%;">Refree Name</th>
+          <th style="width:20%;">Date and Time</th>
+          <th style="width:20%;">Ground</th>
+        </tr>
+        
+      </table>
+
+
+
+<script>
+   
+function myFunction() {
+    table = document.getElementById("myTable");
+    for(var i = table.rows.length - 1; i > 0; i--)
+    {
+        table.deleteRow(i);
+    }
+    var schedule = JSON.parse("{{matchSchedule|escapejs}}");
+    console.log(schedule);
+    if (event.keyCode === 13) {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        // tr = table.getElementsByTagName("tr");
+        for (var i = 0; i < schedule.length; i++) {
+            if(filter == schedule[i].fields.refree_name1.toUpperCase()){
+                var row = table.insertRow();
+                //adding cell for row
+                var MatchID = row.insertCell();
+                MatchID.innerHTML = schedule[i].fields.match_id;
+
+                var Match = row.insertCell();
+                Match.innerHTML = schedule[i].fields.home_team + "  - VS - " + schedule[i].fields.away_team
+
+               
+                var RefreeName = row.insertCell();
+                RefreeName.innerHTML = schedule[i].fields.refree_name1;
+
+                var Time = row.insertCell();
+                Time.innerHTML = schedule[i].fields.date_time;
+
+                var Groundname = row.insertCell();
+                Groundname.innerHTML = schedule[i].fields.ground_name;
+
+                
+
+                
+            }
+        }
+  }
+  
+  /*for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }       
+  }*/
+}
+</script>
+
+{% endblock %}

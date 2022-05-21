@@ -1,0 +1,166 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Register {% endblock %}
+{% block body %}
+
+<!--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script> -->
+   <div class="card">
+  <div class="card-header">
+    Your Team
+  </div>
+      <div class="card-body">
+           <form method="POST">
+            {% csrf_token %}
+     <label for="id_no_of_players">No of players:</label> <input type="number" name="no_of_players" min="0" id="id_no_of_players">
+
+    <ul class="list-group list-group-flush">
+      {% for i in team_data %}
+      <li class="list-group-item">{{ i.player_name }}<br><a onclick="del({{ i.id }});" class="delete_button">delete</a></li>
+      {% endfor %}
+
+
+</ul>
+<div class="field_wrapper">
+        <label>Click to add players name</label>  <a href="javascript:void(0);" class="add_button" title="Add field">+</a>
+    </div>
+               <div class="card-footer text-muted">
+            <button class="btn btn-primary" type="submit">Add</button>
+
+      </div>
+
+
+  </form>
+                         <hr>
+ <h3>Coach details</h3>
+       {% for coach in coaches_data %}
+        <h4>Name: {{ coach.coach_name }}</h4>
+        <h4>Number: {{coach.phone_number}}</h4><td>
+        <button onclick="coach_update({{ coach.pk }});" class="edit_coach">Edit Coach</button></td>
+      {% endfor %}
+      </div>
+   </div>
+
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    var maxField = 15; //Input fields increment limitation
+    var addButton = $('.add_button'); //Add button selector
+    var wrapper = $('.field_wrapper'); //Input field wrapper
+
+    var x = 1; //Initial field counter is 1
+
+
+
+    //Once add button is clicked
+    $(addButton).click(function(){
+       var y = Number(document.querySelector('#id_no_of_players').value)
+       for(; x<y+1;){
+        var fieldHTML = '<div class="mb-3"><label for="id_form-'+ x.toString() +'-player_name">Player '+x.toString()+' Name:</label><input type="text" name="form-'+ x.toString() +'-player_name" class="form-control" maxlength="50" id="id_form-'+ x.toString() +'-player_name"><input type="hidden" name="form-'+ x.toString() +'-id" id="id_form-'+ x.toString() +'-id"></div>'; //New input field html
+        //Check maximum number of input fields
+        if(x < maxField+1){
+            x++; //Increment field counter
+            $(wrapper).append(fieldHTML); //Add field html
+        }
+        else{ break;}
+        }
+    });
+
+    //Once remove button is clicked
+    $(wrapper).on('click', '.remove_button', function(e){
+        e.preventDefault();
+        $(this).parent('div').remove(); //Remove field html
+        x--; //Decrement field counter
+    });
+
+
+});
+</script>
+
+<script>
+        function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = jQuery.trim(cookies[i]);
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+        }
+        function del(id){
+        console.log(id);
+        let confirmation = confirm("are you sure you want to remove this player?");
+        if (confirmation) {
+
+            let url = `/website/delete_player/${id}`;
+            var csrftoken = getCookie('csrftoken');
+            $.ajax({
+               url: url,
+               beforeSend: function(xhr) {
+               xhr.setRequestHeader("X-CSRFToken", getCookie("csrftoken"));
+               },
+               type: "DELETE",
+               dataType: "json"
+             }).done(
+                  function(){
+                  console.log("Nothing");
+                  }
+
+                ).fail(
+                  function(){
+                  url = "/website/team-details/{{ team_id }}";
+                  window.location = url;
+                })
+        }
+
+}
+</script>
+   <script>
+       function coach_update(pk) {
+       console.log(pk)
+        let confirmation = confirm("are you sure you want to edit Coach?");
+        if (confirmation) {
+         url = `/website/coach_update/${pk}`;
+         window.location = url;
+        }
+      }
+   </script>
+{% endblock %}
+<!--<script type="text/javascript">-->
+<!--$(document).ready(function(){-->
+<!--    var maxField = 15; //Input fields increment limitation-->
+<!--    var addButton = $('.add_button'); //Add button selector-->
+<!--    var wrapper = $('.field_wrapper'); //Input field wrapper-->
+
+<!--    var x = 1; //Initial field counter is 1-->
+
+
+
+<!--    //Once add button is clicked-->
+<!--    $(addButton).click(function(){-->
+<!--       var fieldHTML = '<div class="mb-3"><label for="id_form-'+'-player_name">Player '+' Name:</label><input type="text" name="form-'+'-player_name" class="form-control" maxlength="50" id="id_form-'+'-player_name"><input type="hidden" name="form-'+'-id" id="id_form-'+'-id"></div>'; //New input field html-->
+<!--       //Check maximum number of input fields-->
+<!--       if(x < maxField+1){-->
+<!--           x++; //Increment field counter-->
+<!--           $(wrapper).append(fieldHTML); //Add field html-->
+<!--       }-->
+<!--       else{-->
+<!--       console.log('nothing');-->
+<!--       }-->
+<!--    });-->
+
+<!--    //Once remove button is clicked-->
+<!--    $(wrapper).on('click', '.remove_button', function(e){-->
+<!--        e.preventDefault();-->
+<!--        $(this).parent('div').remove(); //Remove field html-->
+<!--        x&#45;&#45;; //Decrement field counter-->
+<!--    });-->
+<!--});-->
+<!--</script>-->
+
+

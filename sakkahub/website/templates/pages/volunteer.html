@@ -1,0 +1,21 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Register {% endblock %}
+{% block body %}
+  <script>
+        var schedule = JSON.parse("{{events|escapejs}}");
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+        initialView: 'dayGridMonth',
+        events: schedule
+
+        });
+
+        calendar.render();
+      });
+
+  </script>
+
+    <div id='calendar' class="myDiv"></div>
+ {% endblock %}

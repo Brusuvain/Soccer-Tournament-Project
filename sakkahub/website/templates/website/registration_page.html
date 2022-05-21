@@ -1,0 +1,23 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %} Register {% endblock %}
+{% block body %}
+
+    <div>
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Registration</legend>
+                {{ form1.as_p }}
+                {{ form2.as_p }}
+            </fieldset>
+            <button class="btn btn-outline-info" type="submit">Register</button>
+        </form>
+    </div>
+    <div class="border-top pt-3">
+        <small class="text-muted">
+            Already have an account <a href="#">Login Here</a>
+        </small>
+    </div>
+
+{% endblock %}

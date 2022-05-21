@@ -1,0 +1,19 @@
+{% extends "Schedule/Base.html" %}
+{% block content %}
+    <h2>Soccer Tournament</h2>
+    <h6><a href="{% url 'tournament-point-table' %}">Tournament Points Table</a></h6>
+    {% for post in posts%}
+        <article class="media content-section">
+            <div class="media-body">
+            <div class="article-metadata">
+                <h5><a class="mr-2" href="{% url 'match-report' %}">{{ post.content }}</a></h5>
+                <small class="text-muted">On {{ post.date }}  starts at {{post.time}}</small>
+            </div>
+            <h3><a class="article-title" href="{% url 'match-detail' post.id %}">{{post.team1}}     v/s    {{  post.team2}}</a></h3>
+            <p class="article-content">Venue: {{ post.venue }}</p>
+            </div>
+        </article>
+        
+    {% endfor %}
+ {% endblock content %}   
+       

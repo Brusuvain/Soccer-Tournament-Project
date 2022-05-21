@@ -1,0 +1,99 @@
+{% extends "main.html" %}
+{% load static %}
+{% block title %}{% endblock %}
+{% block body %}
+<style>
+    body{
+    margin-top:20px;
+    background:#eee;
+}
+.gradient-brand-color {
+
+}
+.contact-info__wrapper {
+    overflow: hidden;
+    border-radius: .625rem .625rem 0 0
+}
+
+@media (min-width: 1024px) {
+    .contact-info__wrapper {
+        border-radius: 0 .625rem .625rem 0;
+        padding: 5rem !important
+    }
+}
+.contact-info__list span.position-absolute {
+    left: 0
+}
+.z-index-101 {
+    z-index: 101;
+}
+.list-style--none {
+    list-style: none;
+}
+.contact__wrapper {
+    background-color: #fff;
+    border-radius: 0 0 .625rem .625rem
+}
+
+@media (min-width: 1024px) {
+    .contact__wrapper {
+        border-radius: .625rem 0 .625rem .625rem
+    }
+}
+@media (min-width: 1024px) {
+    .contact-form__wrapper {
+        padding: 5rem !important
+    }
+}
+.shadow-lg, .shadow-lg--on-hover:hover {
+    box-shadow: 0 1rem 3rem rgba(132,138,163,0.1) !important;
+}
+
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
+
+    <div class="contact__wrapper shadow-lg mt-n9">
+        <div class="row no-gutters">
+            <div class="col-lg-5 contact-info__wrapper gradient-brand-color p-5 order-lg-2">
+<section class="static-page__content-container ">
+<header class="static-page__header">
+
+
+        <h1 class="static-page__title" style="text-align: center;">Contact Us</h1>
+
+<br>
+
+    </header>
+        <div class="static-page__content"><h2 class="title--alt">Office address and information</h2>
+
+<p><strong>Call us at </strong>+1(213)-658-1234<br><br>
+    <strong>Mail us at</strong> sukkahub@gmail.com<br><br>
+    <strong>Mailing Address 700 E Williams field road, Los Angeles, CA, 90012</strong><br><br>
+    <strong>Working hours:</strong> Mon-Fri 9AM-5PM, Saturday and Sunday: 9AM-2PM</p>
+
+<h2 class="title--alt">Office contact</h2>
+
+            <p><strong>John Reece</strong><br><br>
+    <strong>Phone number:</strong> +1(008)-575-2630<br><br>
+
+    <strong>Email:</strong> reece.sukkahub@gmail.com</p>
+
+            <h2 class="title--alt">Ticketing Office</h2>
+    <p><strong>Mail us at </strong>tickets.sukahub@gmail.com</p>
+<p><strong>241 E Glendale Pl, Los Angeles, CA, 90012</strong></p>
+<p><strong>Working hours:</strong> Mon-Fri 9AM-5PM, Saturday and Sunday: 9AM-2PM</p>
+        </div>
+    </section>
+
+
+
+            </div>
+
+
+            <!-- End Contact Form Wrapper -->
+
+        </div>
+    </div>
+
+
+{% endblock %} 
